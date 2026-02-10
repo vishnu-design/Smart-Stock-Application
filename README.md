@@ -1,2 +1,2 @@
 # Smart-Stock-Application
-Smart stock application with LSTM and Prophet model
+Smart stock application with Baeysian and Prophet model
