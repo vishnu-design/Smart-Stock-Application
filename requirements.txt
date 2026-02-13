@@ -3,5 +3,5 @@ pandas
 numpy
 plotly
 prophet
-tensorflow
 scikit-learn
+tensorflow-cpu
