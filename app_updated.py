@@ -44,8 +44,16 @@ class SimpleExpertSystem:
         """Apply simple IF-THEN rules"""
         # 1. Calculate basic metrics
         recent_data = self.df.tail(30)
-        self.avg_daily_sales = recent_data['Quantity_Sold'].mean()
-        self.current_stock = recent_data['Opening_Stock'].iloc[-1]
+        
+        # Safely handle column names depending on if it's been renamed for Prophet yet
+        if 'Quantity_Sold' in recent_data.columns:
+            self.avg_daily_sales = recent_data['Quantity_Sold'].mean()
+        elif 'y' in recent_data.columns:
+            self.avg_daily_sales = recent_data['y'].mean()
+        else:
+            self.avg_daily_sales = 0
+            
+        self.current_stock = recent_data['Opening_Stock'].iloc[-1] if 'Opening_Stock' in recent_data.columns else 0
         self.days_of_stock = self.current_stock / self.avg_daily_sales if self.avg_daily_sales > 0 else 0
 
         # 2. RULE: Low Stock Check
